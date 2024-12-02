@@ -1,0 +1,5 @@
+apprise
+loguru
+pydantic
+pydantic-settings
+paho-mqtt

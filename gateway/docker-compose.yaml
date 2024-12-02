@@ -1,0 +1,31 @@
+services:
+
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+    - 1883:1883
+    volumes:
+    - ./configs/mosquitto:/mosquitto
+
+  mqtt-explorer:
+    image: smeagolworms4/mqtt-explorer
+    ports:
+    - 4000:4000
+    volumes:
+    - ./configs/mqtt-explorer:/mqtt-explorer/config
+
+  chrony:
+    image: cturra/ntp
+    ports:
+      - 123:123/udp
+    environment:
+      NTP_SERVERS: "pool.ntp.org"
+
+  notifier:
+    image: lehkobyt/notifier
+    environment:
+      - NOTIFIER_BROKER=147.232.205.176
+      - NOTIFIER_USER=maker
+      - NOTIFIER_PASSWORD=mother.mqtt.password
+      - NOTIFIER_BASE_TOPIC=services/notifier/vl420ya
+
